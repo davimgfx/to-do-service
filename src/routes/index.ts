@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 router.get('/v1/tasks', taskController.getAllTasksValidation, taskController.getAllTasks);
 router.get('/v1/task/:id', taskController.getByTaskIdValidation, taskController.getByTaskId);
 router.post('/v1/task', taskController.createTaskValidation, taskController.createTask);
-router.put('/v1/task/:id', taskController.updateByTaskIdValidation, taskController.updateByTaskId);
-router.delete('/v1/task/:id', taskController.deleteByTaskIdValidation, taskController.deleteByTaskId);
+// router.put('/v1/task/:id', taskController.updateByTaskIdValidation, taskController.updateByTaskId);
+// router.delete('/v1/task/:id', taskController.deleteByTaskIdValidation, taskController.deleteByTaskId);
 
 export { router };
