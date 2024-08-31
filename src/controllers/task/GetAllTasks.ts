@@ -9,19 +9,19 @@ interface IQueryProps {
   filter ?: string;
 }
 
-export const getAllTasksValidation = validation({
-  query: yup.object().shape({
-    page: yup.number().optional().moreThan(0),
-    limit: yup.number().optional().moreThan(0),
-    filter: yup.string().optional(),
-  })
-});
-
+export const getAllTasksValidation = validation((getSchema) => ({
+  params: getSchema<IQueryProps>(
+    yup.object().shape({
+      page: yup.number().integer().required().moreThan(0),
+      limit: yup.number().integer().required().moreThan(0),
+      filter: yup.string().required()
+    })
+  ),
+}))
 
 export const getAllTasks = async (
-  req: Request<{}, {}, {}, IQueryProps >,
+  req: Request<{}, {}, {}, IQueryProps>,
   res: Response
 ) => {
-
   return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Not implemented');
 };

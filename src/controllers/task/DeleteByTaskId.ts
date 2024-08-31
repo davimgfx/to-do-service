@@ -4,14 +4,15 @@ import * as yup from 'yup';
 import { StatusCodes } from "http-status-codes";
 
 interface IParamProps {
-    id?: number;
+    id: number;
 }
 
-export const deleteByTaskIdValidation = validation({
-    params: yup.object().shape({
-      id: yup.number().integer().required().moreThan(0),
-    })
-  });
+export const deleteByTaskIdValidation = validation(getSchema => ({
+  params: getSchema<IParamProps>(yup.object().shape({
+    id: yup.number().integer().required().moreThan(0),
+  })),
+}));
+
 
   export const deleteByTaskId = async (req: Request<IParamProps>, res: Response) => {
 
