@@ -6,22 +6,21 @@ import { StatusCodes } from 'http-status-codes';
 interface ITask {
   title: string;
   description: string;
-  userId: string;
+  userId: number;
 }
 
 export const createTaskValidation = validation({
   body: yup.object().shape({
     title: yup.string().required().min(5),
     description: yup.string().required().min(10),
-    userId: yup.string().required(),
-  })
+    userId: yup.number().integer().required().moreThan(0),
+  }),
 });
-
 
 export const createTask = async (
   req: Request<{}, {}, ITask>,
   res: Response
 ) => {
-
-  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Not implemented');
+  console.log(req.body);
+  return res.status(StatusCodes.CREATED).json(1)
 };
