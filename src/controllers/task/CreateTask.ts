@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import * as yup from 'yup';
 import { validation } from '../../shared/middlewares/Validation';
 import { StatusCodes } from 'http-status-codes';
+import { db } from '../../database';
 
 interface ITask {
   title: string;
@@ -22,5 +23,7 @@ export const createTask = async (
   res: Response
 ) => {
   console.log(req.body);
+  const response = await db("Task").select("*");
+  console.log(response);
   return res.status(StatusCodes.CREATED).json(1)
 };
