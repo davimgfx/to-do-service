@@ -1,31 +1,23 @@
 import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
+import { createdTaskMock } from './mock';
 
 describe('GetByTaskId', () => {
-  let taskId: number;
-
-  beforeAll(async () => {
-    const response = await testServer.post('/api/v1/task').send({
-      title: 'Task to be retrieved',
-      description: 'This task will be retrieved',
-      completed: false,
-      user_id: 20,
-    });
-
-    taskId = response.body;
-  });
-
-  afterEach(() => {
-    jest.clearAllTimers();
-  });
-
   it('should retrieve a task by id', async () => {
-    const response = await testServer.get(`/api/v1/task/${taskId}`).send();
+    const createResponse = await testServer.post('/api/v1/task').send(createdTaskMock);
+
+    const response = await testServer
+      .get(`/api/v1/task/${createResponse.body}`)
+      .send();
 
     expect(response.statusCode).toEqual(StatusCodes.CREATED);
     expect(response.body).toHaveProperty('title');
     expect(response.body).toHaveProperty('description');
     expect(response.body).toHaveProperty('completed');
+
+    const deleteResponse = await testServer
+      .delete(`/api/v1/task/${createResponse.body}`)
+      .send();
   });
 
   it('should return an error when the task id is not found', async () => {

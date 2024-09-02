@@ -1,33 +1,28 @@
 import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
+import { createdTaskMock } from './mock';
 
 describe('UpdateByTaskId', () => {
-  let taskId: number;
-
-  beforeAll(async () => {
-    const response = await testServer.post('/api/v1/task').send({
-      title: 'Task to be updated',
-      description: 'This task will be updated',
-      completed: false,
-      user_id: 20,
-    });
-
-    taskId = response.body;
-  });
-
-  afterEach(() => {
-    jest.clearAllTimers();
-  });
-
   it('should update a task by id', async () => {
-    const response = await testServer.put(`/api/v1/task/${taskId}`).send({
-      title: 'Updated Task Title',
-      description: 'Updated Task Description',
-      completed: true,
-    });
+    const createResponse = await testServer.post('/api/v1/task').send(createdTaskMock);
 
-    expect(response.statusCode).toEqual(StatusCodes.CREATED);
-    expect(response.body).toHaveProperty('message', 'Task updated successfully');
+    const updateResponse = await testServer
+      .put(`/api/v1/task/${createResponse.body}`)
+      .send({
+        title: 'Updated Task Title',
+        description: 'Updated Task Description',
+        completed: true,
+      });
+
+    expect(updateResponse.statusCode).toEqual(StatusCodes.CREATED);
+    expect(updateResponse.body).toHaveProperty(
+      'message',
+      'Task updated successfully'
+    );
+
+    const deleteResponse = await testServer
+      .delete(`/api/v1/task/${createResponse.body}`)
+      .send();
   });
 
   it('should return an error when the task id is not found', async () => {
@@ -64,11 +59,7 @@ describe('UpdateByTaskId', () => {
   });
 
   it('should return validation error when required fields are missing', async () => {
-    const response = await testServer.put(`/api/v1/task/${taskId}`).send({
-      title: 'Sho',
-      description: 'Short',
-      completed: 'not-a-boolean', 
-    });
+    const response = await testServer.put(`/api/v1/task/999`).send({});
 
     expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(response.body).toHaveProperty('errors.body.title');

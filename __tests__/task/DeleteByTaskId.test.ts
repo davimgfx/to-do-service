@@ -1,14 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
+import { createdTaskMock } from './mock';
 
 describe('DeleteByTaskId', () => {
   it('should delete a task by id', async () => {
-    const createResponse = await testServer.post('/api/v1/task').send({
-      title: 'Task to be deleted',
-      description: 'This task will be deleted',
-      completed: false,
-      user_id: 20,
-    });
+    const createResponse = await testServer.post('/api/v1/task').send(createdTaskMock);
 
     const taskId = createResponse.body;
 
