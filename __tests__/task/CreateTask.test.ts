@@ -6,7 +6,8 @@ describe('CreateTask', () => {
     const response = await testServer.post('/api/v1/task').send({
       title: 'Task 1',
       description: 'You probably won’t do this',
-      userId: 20,
+      completed: false,
+      user_id: 20,
     });
 
     expect(response.statusCode).toEqual(StatusCodes.CREATED);
@@ -17,7 +18,7 @@ describe('CreateTask', () => {
     const response = await testServer.post('/api/v1/task').send({});
 
     expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-    expect(response.body).toHaveProperty("errors.body.userId");
+    expect(response.body).toHaveProperty("errors.body.user_id");
     expect(response.body).toHaveProperty("errors.body.title");
     expect(response.body).toHaveProperty("errors.body.description");
   });
@@ -44,7 +45,7 @@ describe('CreateTask', () => {
     expect(response.body).toHaveProperty("errors.body.description");
   });
 
-  it("should return error messages when userId is a string", async () => {
+  it("should return error messages when user_id is a string", async () => {
     const response = await testServer.post('/api/v1/task').send({
       title: 'Task',
       description: 'You probably won’t do this',
@@ -52,17 +53,17 @@ describe('CreateTask', () => {
     });
 
     expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-    expect(response.body).toHaveProperty("errors.body.userId");
+    expect(response.body).toHaveProperty("errors.body.user_id");
   });
 
-  it("should return error messages when userId is a float", async () => {
+  it("should return error messages when user_id is a float", async () => {
     const response = await testServer.post('/api/v1/task').send({
       title: 'Task',
       description: 'You probably won’t do this',
-      userId: 1.2,
+      user_id: 1.2,
     });
 
     expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-    expect(response.body).toHaveProperty("errors.body.userId");
+    expect(response.body).toHaveProperty("errors.body.user_id");
   });
 });

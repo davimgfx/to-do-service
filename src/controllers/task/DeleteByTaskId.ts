@@ -35,6 +35,6 @@ export const deleteByTaskIdValidation = validation(getSchema => ({
         },
       });
     } 
-    return res.status(StatusCodes.CREATED).json(result);
+    return res.status(StatusCodes.OK).json(result);
 
   }
