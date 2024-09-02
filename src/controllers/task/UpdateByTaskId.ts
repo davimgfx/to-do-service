@@ -3,9 +3,10 @@ import { validation } from '../../shared/middlewares';
 import * as yup from 'yup';
 import { StatusCodes } from 'http-status-codes';
 import { ITask } from '../../models';
+import { taskProvider } from '../../providers';
 
 interface IParamProps {
-  id: number;
+  id?: number;
 }
 
 interface IBodyProps extends Omit<ITask, 'user_id' | 'id'> {
@@ -33,6 +34,23 @@ export const updateByTaskId = async (
   req: Request<IParamProps, {}, IBodyProps>,
   res: Response
 ) => {
-  // Implementation here
-  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Not implemented');
+  if (!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: 'id is required',
+      }
+    });
+  }
+  const result = await taskProvider.updateByTaskId(req.params.id, req.body);
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message
+      }
+    });
+  }
+
+  return res.status(StatusCodes.CREATED).json({
+    message: 'Task updated successfully'
+  });
 };
