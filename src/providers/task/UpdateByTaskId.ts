@@ -1,10 +1,12 @@
-import { db } from "../../database";
-import { ITask } from "../../models";
+import { db } from '../../database';
+import { ITask } from '../../models';
 
-export const updateByTaskId = async (id: number, task: Omit<ITask, 'id' | "user_id">): Promise<void | Error>=> {
+export const updateByTaskId = async (
+  id: number,
+  task: Omit<ITask, 'id' | 'user_id'>
+): Promise<void | Error> => {
   try {
-    const result = await db("task").update(task)
-    .where('id', '=', id);
+    const result = await db('task').update(task).where('id', '=', id);
 
     if (result > 0) return;
 
@@ -13,4 +15,4 @@ export const updateByTaskId = async (id: number, task: Omit<ITask, 'id' | "user_
     console.log(err);
     return Error('Error updating task');
   }
-}
+};

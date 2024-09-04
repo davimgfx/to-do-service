@@ -11,7 +11,7 @@ interface IQueryProps {
   filter?: string;
 }
 
-export const getAllTasksValidation = validation((getSchema) => ({
+export const getAllTasksByUserIdValidation = validation((getSchema) => ({
   params: getSchema<IQueryProps>(
     yup.object().shape({
       page: yup.number().integer().optional().moreThan(0),
@@ -22,7 +22,7 @@ export const getAllTasksValidation = validation((getSchema) => ({
   ),
 }))
 
-export const getAllTasks = async (
+export const getAllTasksByUserId = async (
   req: Request<{}, {}, {}, IQueryProps>,
   res: Response
 ) => {
@@ -37,7 +37,7 @@ export const getAllTasks = async (
     });
   }
 
-  const result = await taskProvider.getAllTasks(page, limit, filter, user_id);
+  const result = await taskProvider.getAllTasksByUserId(page, limit, filter, user_id);
 
   const count = await taskProvider.countTasks(filter);
 

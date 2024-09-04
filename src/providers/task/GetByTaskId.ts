@@ -1,11 +1,12 @@
-import { db } from "../../database";
-import { ITask } from "../../models";
+import { db } from '../../database';
+import { ITask } from '../../models';
 
 export const getByTaskId = async (taskId: number): Promise<ITask | Error> => {
   try {
-    const result = await db("task").select('*')
-    .where('id', '=', taskId)
-    .first();
+    const result = await db('task')
+      .select('*')
+      .where('id', '=', taskId)
+      .first();
 
     if (result) return result;
 
@@ -14,4 +15,4 @@ export const getByTaskId = async (taskId: number): Promise<ITask | Error> => {
     console.log(err);
     return Error('Error get task');
   }
-}
+};

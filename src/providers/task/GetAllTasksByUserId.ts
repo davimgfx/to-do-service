@@ -1,7 +1,7 @@
 import { db } from "../../database";
 import { ITask } from "../../models";
 
-export const getAllTasks = async (page: number, limit: number, filter: string, user_id: number): Promise<ITask[] | Error> => {
+export const getAllTasksByUserId = async (page: number, limit: number, filter: string, user_id: number): Promise<ITask[] | Error> => {
   try {
     const query = db("task")
       .select('*')

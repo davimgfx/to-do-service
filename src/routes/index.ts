@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   });
 
 // Tasks
-router.get('/v1/tasks', taskController.getAllTasksValidation, taskController.getAllTasks);
+router.get('/v1/tasks', taskController.getAllTasksByUserIdValidation, taskController.getAllTasksByUserId);
 router.get('/v1/task/:id', taskController.getByTaskIdValidation, taskController.getByTaskId);
 router.post('/v1/task', taskController.createTaskValidation, taskController.createTask);
 router.put('/v1/task/:id', taskController.updateByTaskIdValidation, taskController.updateByTaskId);
