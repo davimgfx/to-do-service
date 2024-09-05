@@ -24,9 +24,13 @@
 //     "completed": false,
 //   }
 
-export const createdTaskMock = {
-    title: 'Task 1',
-    description: 'You probably won’t do this',
-    completed: false,
-    user_id: 99228,
+export const userSignInMock = {
+  email: 'usuariopvp@email.com',
+  password: 'senha123',
+};
+
+export const userCreateMock = {
+  name: 'Usuario Teste',
+  email: 'usuarionewteste@gmail.com',
+  password: 'senha123',
 }

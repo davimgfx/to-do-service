@@ -1,11 +1,11 @@
 import { db } from '../../database';
 import { IUser } from '../../models';
 
-export const getByUserId = async (userId: number): Promise<IUser | Error> => {
+export const getByUserEmail = async (email: string): Promise<IUser | Error> => {
   try {
     const result = await db('user')
       .select('*')
-      .where('id', '=', userId)
+      .where('email', '=', email)
       .first();
 
     if (result) return result;
