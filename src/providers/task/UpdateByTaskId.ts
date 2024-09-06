@@ -12,7 +12,6 @@ export const updateByTaskId = async (
 
     return Error('Error updating task');
   } catch (err) {
-    console.log(err);
     return Error('Error updating task');
   }
 };

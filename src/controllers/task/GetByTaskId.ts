@@ -36,5 +36,5 @@ export const getByTaskId = async (req: Request<IParamProps>, res: Response) => {
       },
     });
   }
-  return res.status(StatusCodes.CREATED).json(result);
+  return res.status(StatusCodes.OK).json(result);
 };

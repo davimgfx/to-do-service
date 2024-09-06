@@ -10,7 +10,6 @@ export const deleteByTaskId = async (
 
     return Error('Error deleting task');
   } catch (err) {
-    console.log(err);
     return Error('Error deleting task');
   }
 };

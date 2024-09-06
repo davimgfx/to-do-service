@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
-import { createdTaskMock } from './mock';
+import { createdTaskMock  } from './mock';
+import { userSignInMock } from '../user/mock';
 
 // First create a user with this infos:
 // {
@@ -29,26 +30,34 @@ import { createdTaskMock } from './mock';
 //   }
 
 describe('GetAllTasksByUserId', () => {
-  it('should retrieve all tasks particular user', async () => {
-    const response = await testServer.get('/api/v1/tasks').query({
-      user_id:  createdTaskMock.user_id,
-    }).send();
+  let accessToken: string;
 
+  beforeAll(async () => {
+    const signInResponse = await testServer
+      .post('/api/v1/auth/login')
+      .send(userSignInMock);
 
+    accessToken = signInResponse.body.accessToken;
+  });
+
+  const queryTasks = (query: object) =>
+    testServer.get('/api/v1/tasks')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .query(query)
+      .send();
+
+  it('should retrieve all tasks for a particular user', async () => {
+    const response = await queryTasks({ user_id: createdTaskMock.user_id });
 
     expect(response.status).toEqual(StatusCodes.OK);
     expect(response.body.length).toEqual(3);
-  })
+  });
 
   it('should retrieve tasks with pagination and filter', async () => {
-    const response = await testServer
-      .get('/api/v1/tasks')
-      .query({
-        filter: 'Task Repetida',
-        user_id: createdTaskMock.user_id,
-      })
-      .send();
-
+    const response = await queryTasks({
+      filter: 'Task Repetida',
+      user_id: createdTaskMock.user_id,
+    });
 
     expect(response.statusCode).toEqual(StatusCodes.OK);
     expect(response.body.length).toBe(2);
@@ -57,36 +66,21 @@ describe('GetAllTasksByUserId', () => {
   });
 
   it('should return validation error when page is less than 1', async () => {
-    const response = await testServer
-      .get('/api/v1/tasks')
-      .query({
-        page: 0,
-      })
-      .send();
+    const response = await queryTasks({ page: 0 });
 
     expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(response.body).toHaveProperty('errors');
   });
 
   it('should return validation error when limit is less than 1', async () => {
-    const response = await testServer
-      .get('/api/v1/tasks')
-      .query({
-        limit: 0,
-      })
-      .send();
+    const response = await queryTasks({ limit: 0 });
 
     expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(response.body).toHaveProperty('errors.default');
   });
 
   it('should return validation error when user_id is not a number', async () => {
-    const response = await testServer
-      .get('/api/v1/tasks')
-      .query({
-        user_id: 'not-a-number',
-      })
-      .send();
+    const response = await queryTasks({ user_id: 'not-a-number' });
 
     expect(response.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(response.body).toHaveProperty('errors.default');

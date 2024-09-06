@@ -15,7 +15,6 @@ export const createUser = async (
 
     return result;
   } catch (err) {
-    console.log(err);
     return Error('Error creating user');
   }
 };

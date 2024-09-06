@@ -50,7 +50,7 @@ export const updateByTaskId = async (
     });
   }
 
-  return res.status(StatusCodes.CREATED).json({
+  return res.status(StatusCodes.OK).json({
     message: 'Task updated successfully'
   });
 };

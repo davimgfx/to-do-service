@@ -10,7 +10,6 @@ export const countTasks = async (filter = ''): Promise<number | Error> => {
 
     return new Error('Error counting tasks');
   } catch (error) {
-    console.log(error);
     return new Error('Error counting task');
   }
 };

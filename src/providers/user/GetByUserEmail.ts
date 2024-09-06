@@ -12,7 +12,7 @@ export const getByUserEmail = async (email: string): Promise<IUser | Error> => {
 
     return Error('Error get user');
   } catch (err) {
-    console.log(err);
+
     return Error('Error get user');
   }
 };

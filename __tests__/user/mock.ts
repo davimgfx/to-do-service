@@ -31,6 +31,6 @@ export const userSignInMock = {
 
 export const userCreateMock = {
   name: 'Usuario Teste',
-  email: 'usuarionewteste@gmail.com',
+  email: `usuarionewteste+${Date.now()}@gmail.com`,
   password: 'senha123',
 }

@@ -9,7 +9,7 @@ export const createTask = async (
 
     return result;
   } catch (err) {
-    console.log(err);
+
     return Error('Error creating task');
   }
 };
