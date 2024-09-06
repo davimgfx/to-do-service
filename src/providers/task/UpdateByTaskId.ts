@@ -10,8 +10,8 @@ export const updateByTaskId = async (
 
     if (result > 0) return;
 
-    return Error('Error updating task');
+    return Error('Erro para atualizar a task');
   } catch (err) {
-    return Error('Error updating task');
+    return Error('Error para atualizar a task');
   }
 };

@@ -8,8 +8,8 @@ export const deleteByTaskId = async (
 
     if (result > 0) return result;
 
-    return Error('Error deleting task');
+    return Error('Error ao deletar as tarefas');
   } catch (err) {
-    return Error('Error deleting task');
+    return Error('Error ao deletar as tarefas');
   }
 };

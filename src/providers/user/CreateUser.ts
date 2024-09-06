@@ -8,6 +8,7 @@ export const createUser = async (
   try {
     const hashPassword = await PasswordCrypto.hashPassword(user.password)
 
+
     const [result] = await db('user').insert({
       ...user,
       password: hashPassword,
@@ -15,6 +16,6 @@ export const createUser = async (
 
     return result;
   } catch (err) {
-    return Error('Error creating user');
+    return Error('Error ao criar usuário');
   }
 };

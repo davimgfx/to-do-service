@@ -10,9 +10,9 @@ export const getByUserEmail = async (email: string): Promise<IUser | Error> => {
 
     if (result) return result;
 
-    return Error('Error get user');
+    return Error('Erro ao obter usuário');
   } catch (err) {
 
-    return Error('Error get user');
+    return Error('Error ao obter usuário');
   }
 };

@@ -21,6 +21,6 @@ export const getAllTasksByUserId = async (page: number, limit: number, filter: s
     return result;
   } catch (error) {
 
-    return new Error('Error getting tasks');
+    return new Error('Error ao obter as tarefas');
   }
 };

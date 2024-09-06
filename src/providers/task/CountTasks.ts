@@ -8,8 +8,8 @@ export const countTasks = async (filter = ''): Promise<number | Error> => {
 
     if (Number.isInteger(Number(count))) return Number(count);
 
-    return new Error('Error counting tasks');
+    return new Error('Error ao contar tarefas');
   } catch (error) {
-    return new Error('Error counting task');
+    return new Error('Error ao contar tarefas');
   }
 };

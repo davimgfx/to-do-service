@@ -10,8 +10,8 @@ export const getByTaskId = async (taskId: number): Promise<ITask | Error> => {
 
     if (result) return result;
 
-    return Error('Error get task');
+    return Error('Error ao pegar uma tarefa');
   } catch (err) {
-    return Error('Error get task');
+    return Error('Error ao pegar uma tarefa');
   }
 };

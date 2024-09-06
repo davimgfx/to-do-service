@@ -10,6 +10,6 @@ export const createTask = async (
     return result;
   } catch (err) {
 
-    return Error('Error creating task');
+    return Error('Erro ao criar tarefa');
   }
 };
