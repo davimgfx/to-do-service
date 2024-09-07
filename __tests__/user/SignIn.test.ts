@@ -17,7 +17,7 @@ describe('SignIn', () => {
     });
 
     expect(response.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
-    expect(response.body).toHaveProperty('errors.default', 'Email or password incorrect');
+    expect(response.body).toHaveProperty('errors.default', 'Email ou senha incorreta');
   });
 
   it('should return error message for incorrect password', async () => {
@@ -27,7 +27,7 @@ describe('SignIn', () => {
     });
 
     expect(response.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
-    expect(response.body).toHaveProperty('errors.default', 'Email or password incorrect');
+    expect(response.body).toHaveProperty('errors.default', 'Email ou senha incorreta');
   });
 
   it('should return error messages when required fields are missing', async () => {

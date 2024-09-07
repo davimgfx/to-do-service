@@ -28,7 +28,7 @@ export const signIn = async (
   if (result instanceof Error) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
-        default: 'Email or password incorrect',
+        default: 'Email ou senha incorreta',
       },
     });
   }
@@ -54,7 +54,7 @@ export const signIn = async (
   } else {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
-        default: 'Email or password incorrect',
+        default: 'Email ou senha incorreta',
       },
     });
   }
