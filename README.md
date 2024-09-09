@@ -21,7 +21,7 @@ https://github.com/davimgfx/to-do-client
 Clone o repositório:
 
 ```
-git clone https://github.com/usuario/repositorio.git
+git clone https://github.com/davimgfx/to-do-service.git
 ```
 
 Instale as dependências:
